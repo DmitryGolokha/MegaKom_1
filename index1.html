@@ -10,11 +10,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Базовые настройки */
+        /* Базовые настройки и сброс */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden; /* Защита от горизонтальной прокрутки */
         }
 
         body {
@@ -38,10 +43,12 @@
         /* Верхний красный баннер */
         .top-banner {
             background-color: #ba0000;
-            padding: 25px 50px;
+            padding: 25px 5%; /* Используем проценты для адаптивности */
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap; /* Позволяет элементам переноситься на узких экранах */
+            gap: 20px;
             color: #ffffff;
         }
 
@@ -56,8 +63,6 @@
             flex-grow: 1;
             font-size: 15px;
             line-height: 1.5;
-            margin-left: 40px;
-            margin-right: 40px;
             max-width: 800px;
             font-weight: 400;
         }
@@ -82,10 +87,12 @@
         /* Основной блок футера */
         .main-footer {
             display: grid;
-            grid-template-columns: 1.2fr 1fr 1fr 1.1fr 1fr 1.2fr;
-            gap: 20px;
-            padding: 40px 50px;
+            /* Адаптивная сетка: минимум 180px на колонку, максимум - растягивается */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            padding: 40px 5%;
             background-color: #f4f4f4;
+            width: 100%;
         }
 
         /* Колонка 1: Контакты */
@@ -101,12 +108,15 @@
             fill: #777; 
             flex-shrink: 0;
             margin-top: 3px; 
+            width: 16px;
+            height: 16px;
         }
 
         .phone-number {
             color: #333;
             font-weight: 700;
             font-size: 16px;
+            line-height: 1.4;
         }
 
         .btn-callback {
@@ -153,7 +163,6 @@
             position: relative;
             width: 100%;
             max-width: 250px;
-            margin-left: auto;
         }
 
         .search-input {
@@ -165,6 +174,7 @@
             font-family: 'Open Sans', Arial, sans-serif;
             color: #777;
             outline: none;
+            box-sizing: border-box;
         }
 
         .search-input::placeholder {
@@ -182,28 +192,21 @@
             pointer-events: none;
         }
 
-        /* Адаптивность */
-        @media (max-width: 1200px) {
-            .main-footer {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .search-container {
-                margin-left: 0;
-                margin-top: 20px;
-                max-width: 100%;
-            }
-        }
+        /* Медиа-запросы для мобильных устройств */
         @media (max-width: 768px) {
             .top-banner {
                 flex-direction: column;
                 text-align: center;
-                gap: 20px;
-            }
-            .banner-text {
-                margin: 0;
+                padding: 25px 20px;
             }
             .main-footer {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 1fr; /* 2 колонки на планшетах */
+                padding: 30px 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .main-footer {
+                grid-template-columns: 1fr; /* 1 колонка на смартфонах */
             }
         }
     </style>
@@ -222,10 +225,10 @@
     <!-- Основной футер -->
     <footer class="main-footer">
         
-        <!-- Колонка 1 -->
+        <!-- Колонка 1: Контакты -->
         <div>
             <div class="contact-item">
-                <svg width="16" height="16" viewBox="0 0 24 24">
+                <svg viewBox="0 0 24 24">
                     <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
                 </svg>
                 <div class="phone-number">+7 (4712) 77-31-40, 73-55-66</div>
@@ -234,30 +237,32 @@
             <button class="btn-callback">Заказать звонок</button>
             
             <div class="contact-item">
-                <svg width="16" height="16" viewBox="0 0 24 24">
+                <svg viewBox="0 0 24 24">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
                 <a href="mailto:client@megkom.ru" class="email-link">client@megkom.ru</a>
             </div>
             
             <div class="contact-item">
-                <svg width="16" height="16" viewBox="0 0 24 24">
+                <svg viewBox="0 0 24 24">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                 </svg>
                 <div>г. Курск, ул. Красной Армии<br>д.23А</div>
             </div>
 
-            <!-- Значок МАКС с добавленной ссылкой -->
+            <!-- Иконка и ссылка МАКС -->
             <div class="contact-item">
-                <svg width="16" height="16" viewBox="0 0 100 100">
+                <svg viewBox="0 0 100 100">
+                    <!-- Внешний круг -->
                     <circle cx="50" cy="50" r="50" fill="#777" />
+                    <!-- Внутренний вырез (цвет фона страницы) -->
                     <path d="M 50 22 C 30 22 22 38 22 54 C 22 65 27 73 32 75 L 34 69 L 42 74 C 46 76 52 77 58 76 C 73 74 78 60 78 50 C 78 35 68 22 50 22 Z" fill="#f4f4f4" />
                 </svg>
-                <a href="https://max.ru/u/f9LHodD0cOLNyAX1ttizR7vWgz13gBddi4lAnxQ4cbqBI6Sc4tESsCFCNRU" target="_blank">Мы в MAX</a>
+                <a href="https://max.ru/u/f9LHodD0cOLNyAX1ttizR7vWgz13gBddi4lAnxQ4cbqBI6Sc4tESsCFCNRU" target="_blank" rel="noopener noreferrer">Мы в MAX</a>
             </div>
         </div>
 
-        <!-- Колонка 2 -->
+        <!-- Колонка 2: Программы 1С -->
         <div>
             <div class="footer-heading">Программы 1С</div>
             <ul class="footer-list">
@@ -273,7 +278,7 @@
             </ul>
         </div>
 
-        <!-- Колонка 3 -->
+        <!-- Колонка 3: Услуги -->
         <div>
             <div class="footer-heading">Услуги</div>
             <ul class="footer-list">
@@ -286,7 +291,7 @@
             </ul>
         </div>
 
-        <!-- Колонка 4 -->
+        <!-- Колонка 4: Помощь пользователям -->
         <div>
             <div class="footer-heading">Помощь<br>пользователям</div>
             <ul class="footer-list">
@@ -301,7 +306,7 @@
             </ul>
         </div>
 
-        <!-- Колонка 5 -->
+        <!-- Колонка 5: О компании -->
         <div>
             <div class="footer-heading">О компании</div>
             <ul class="footer-list">
